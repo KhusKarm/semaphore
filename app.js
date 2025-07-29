@@ -23,7 +23,8 @@ document.getElementById("decreaseSpeed").addEventListener("click", () => {
 // 🧠 Converts WPM → delay per character (in ms)
 function getSymbolDelayFromWPM() {
   const wpm = parseInt(document.getElementById("speed").value, 10) || 120;
-  return Math.round(60000 / (wpm * 5)); // 5 characters per word standard
+  const delay = Math.round(60000 / (wpm * 5)); // 5 characters per word standard
+    return Math.max(delay, 80); // ⏲️ Don't go below 80ms
 }
 
 const numberToWordMap = {
@@ -117,8 +118,7 @@ function displayNextSymbol() {
     symbolImg.src = getSymbolImage(currentChar);
   } else {
     currentIndex++;
-    displayNextSymbol();
-    return;
+    
   }
 
   currentIndex++;
